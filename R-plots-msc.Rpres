@@ -1,0 +1,923 @@
+R: Presenting outputs
+========================================================
+author: Dr N Green
+date: March 2018
+autosize: false
+width: 2440
+height: 1200
+css: custom.css
+
+
+```{r echo=FALSE}
+opts_chunk$set(echo=TRUE)
+ECHO_CHUNK <- FALSE
+```
+
+CRAN Task View
+=========================================================
+
+Task Views are guides on CRAN that group sets of R packages and functions by type of analysis, fields, or methodologies.
+
+![](cran-repro-research.png)
+
+
+Install and load the ctv package.
+```
+install.packages("ctv")
+library("ctv")
+```
+
+Then, install the CRAN task view of your choice using install.views such as:
+```
+install.views("ReproducableResearch")
+```
+
+Scatter plot: add points of different colours and symbols
+========================================================
+`pch = ...`, `col = ...`
+
+![](pch-table.png)
+
+Scatter plot: add points of different colours and symbols
+========================================================
+
+`plot(x, y = NULL, type = "p", ...)`
+
+`points(x, y = NULL, type = "p", ...)`
+
+```{r, echo=TRUE, eval=FALSE}
+x <- rnorm(10, sd=5, mean=20)
+y <- 2.5*x - 1.0 + rnorm(10, sd=9, mean=0)
+plot(x,y,xlab="Independent", ylab="Dependent", main="Random Stuff")
+
+x1 <- runif(8,15,25)
+y1 <- 2.5*x1 - 1.0 + runif(8,-6,6)
+??
+
+x2 <- runif(8,15,25)
+y2 <- 2.5*x2 - 1.0 + runif(8,-6,6)
+??
+```
+
+```{r, echo=FALSE}
+x <- rnorm(10,sd=5,mean=20)
+y <- 2.5*x - 1.0 + rnorm(10, sd=9, mean=0)
+plot(x,y,xlab="Independent", ylab="Dependent", main="Random Stuff")
+
+x1 <- runif(8,15,25)
+y1 <- 2.5*x1 - 1.0 + runif(8,-6,6)
+points(x1,y1,col=2)
+
+x2 <- runif(8,15,25)
+y2 <- 2.5*x2 - 1.0 + runif(8,-6,6)
+points(x2, y2, col = 3, pch = 2)
+```
+
+Scatter plot: add points of different colours and symbols
+========================================================
+
+`plot(x, y = NULL, type = "p", ...)`
+
+`points(x, y = NULL, type = "p", ...)`
+
+```{r, echo=ECHO_CHUNK, eval=TRUE}
+x <- rnorm(10,sd=5,mean=20)
+y <- 2.5*x - 1.0 + rnorm(10,sd=9,mean=0)
+plot(x,y,xlab="Independent", ylab="Dependent", main="Random Stuff")
+x1 <- runif(8,15,25)
+y1 <- 2.5*x1 - 1.0 + runif(8,-6,6)
+points(x1,y1,col=2)
+
+x2 <- runif(8,15,25)
+y2 <- 2.5*x2 - 1.0 + runif(8,-6,6)
+points(x2,y2,col=3,pch=2)
+```
+
+
+Different types of lines
+========================================================
+
+`par(..., no.readonly = FALSE)`
+
+```{r, eval=FALSE}
+x <- c(1:5); y <- x
+par(pch=22, col="red")
+par(mfrow=c(2,4))
+opts = ???
+for(i in 1:length(opts)){
+heading = paste("type=",opts[i])
+plot(x, y, type="n", main=heading)
+lines(x, y, type=opts[i])
+}
+
+```
+
+```{r, echo=FALSE}
+x <- c(1:5); y <- x
+par(pch=22, col="red")
+par(mfrow=c(2,4))
+opts = c("p","l","o","b","c","s","S","h")
+for(i in 1:length(opts)){
+heading = paste("type=",opts[i])
+plot(x, y, type="n", main=heading)
+lines(x, y, type=opts[i])
+}
+
+```
+
+Different types of lines
+========================================================
+
+```{r, echo=ECHO_CHUNK}
+x <- c(1:5); y <- x
+par(pch=22, col="red")
+par(mfrow=c(2,4))
+opts = c("p","l","o","b","c","s","S","h")
+for(i in 1:length(opts)){
+heading = paste("type=",opts[i])
+plot(x, y, type="n", main=heading)
+lines(x, y, type=opts[i])
+}
+
+```
+
+
+Scatter plot: legend
+========================================================
+
+`legend(x, y = NULL, legend, fill = NULL, col = par("col"),
+       border = "black", lty, lwd, pch,
+       angle = 45, density = NULL, bty = "o", bg = par("bg"),
+       box.lwd = par("lwd"), box.lty = par("lty"), box.col = par("fg"),
+       pt.bg = NA, cex = 1, pt.cex = cex, pt.lwd = lwd,
+       xjust = 0, yjust = 1, x.intersp = 1, y.intersp = 1,
+       adj = c(0, 0.5), text.width = NULL, text.col = par("col"),
+       text.font = NULL, merge = do.lines && has.pch, trace = FALSE,
+       plot = TRUE, ncol = 1, horiz = FALSE, title = NULL,
+       inset = 0, xpd, title.col = text.col, title.adj = 0.5,
+       seg.len = 2)'
+
+```{r, echo=T, eval=FALSE}
+plot(x,y,xlab="Independent",ylab="Dependent",main="Random Stuff")
+points(x1,y1,col=2,pch=3)
+points(x2,y2,col=4,pch=5)
+???
+```
+
+```{r, echo=FALSE, eval=TRUE}
+plot(x,y,xlab="Independent",ylab="Dependent",main="Random Stuff")
+points(x1,y1,col=2,pch=3)
+points(x2,y2,col=4,pch=5)
+legend("topright", c("Original","one","two"),col=c(1,2,4),pch=c(1,3,5))
+legend(20, 50, c("Original","one","two"),col=c(1,2,4),pch=c(1,3,5))
+
+```
+
+Scatter plot: legend
+========================================================
+
+
+```{r, echo=ECHO_CHUNK, eval=TRUE}
+plot(x,y,xlab="Independent",ylab="Dependent",main="Random Stuff")
+points(x1,y1,col=2,pch=3)
+points(x2,y2,col=4,pch=5)
+legend("topright", c("Original","one","two"),col=c(1,2,4),pch=c(1,3,5))
+legend(20, 50, c("Original","one","two"),col=c(1,2,4),pch=c(1,3,5))
+
+```
+
+Simple fitted lines
+========================================================
+
+`abline(a = NULL, b = NULL, h = NULL, v = NULL, reg = NULL,
+       coef = NULL, untf = FALSE, ...)`
+       
+`lm(formula, data, subset, weights, na.action,
+   method = "qr", model = TRUE, x = FALSE, y = FALSE, qr = TRUE,
+   singular.ok = TRUE, contrasts = NULL, offset, ...)`
+   
+`lowess(x, y = NULL, f = 2/3, iter = 3, delta = 0.01 * diff(range(x)))`
+
+```{r, echo=T, eval=F}
+x <- rnorm(10,sd=5,mean=20)
+y <- 2.5*x - 1.0 + rnorm(10,sd=9,mean=0)
+x2 <- runif(8,15,25)
+y2 <- 2.5*x2 - 1.0 + runif(8,-6,6)
+
+plot(x,y,xlab="Independent",ylab="Dependent",main="Random Stuff")
+points(x1,y1,col=2,pch=3)
+points(x2,y2,col=4,pch=5)
+legend(25,80,c("Original","one","two"),col=c(1,2,4),pch=c(1,3,5))
+
+???
+```
+
+```{r, echo=FALSE, eval=T}
+x <- rnorm(10,sd=5,mean=20)
+y <- 2.5*x - 1.0 + rnorm(10,sd=9,mean=0)
+x2 <- runif(8,15,25)
+y2 <- 2.5*x2 - 1.0 + runif(8,-6,6)
+
+plot(x,y,xlab="Independent",ylab="Dependent",main="Random Stuff")
+points(x1,y1,col=2,pch=3)
+points(x2,y2,col=4,pch=5)
+legend(25,80,c("Original","one","two"),col=c(1,2,4),pch=c(1,3,5))
+
+abline(lm(y~x), col="red")
+lines(lowess(x,y), col="blue")
+
+```
+
+Simple fitted lines
+========================================================
+
+```{r, echo=ECHO_CHUNK, eval=TRUE}
+x <- rnorm(10,sd=5,mean=20)
+y <- 2.5*x - 1.0 + rnorm(10,sd=9,mean=0)
+x2 <- runif(8,15,25)
+y2 <- 2.5*x2 - 1.0 + runif(8,-6,6)
+
+plot(x,y,xlab="Independent",ylab="Dependent",main="Random Stuff")
+points(x1,y1,col=2,pch=3)
+points(x2,y2,col=4,pch=5)
+legend(25,80,c("Original","one","two"),col=c(1,2,4),pch=c(1,3,5))
+
+abline(lm(y~x), col="red")
+lines(lowess(x,y), col="blue")
+
+```
+
+With error lines
+========================================================
+
+`arrows(x0, y0, x1 = x0, y1 = y0, length = 0.25, angle = 30,
+       code = 2, col = par("fg"), lty = par("lty"),
+       lwd = par("lwd"), ...)`
+       
+```{r, echo=T, eval=F}
+plot(x,y,xlab="Independent",ylab="Dependent",main="Random Stuff")
+xHigh <- x
+yHigh <- y + abs(rnorm(10,sd=3.5))
+xLow <- x
+yLow <- y - abs(rnorm(10,sd=3.1))
+???
+```
+
+```{r, echo=FALSE, eval=T}
+plot(x,y,xlab="Independent",ylab="Dependent",main="Random Stuff")
+xHigh <- x
+yHigh <- y + abs(rnorm(10,sd=3.5))
+xLow <- x
+yLow <- y - abs(rnorm(10,sd=3.1))
+arrows(xHigh,yHigh,xLow,yLow,col=2,angle=90,length=0.1,code=3)
+
+```
+
+With error lines
+========================================================
+
+```{r, echo=ECHO_CHUNK, eval=T}
+plot(x,y,xlab="Independent",ylab="Dependent",main="Random Stuff")
+xHigh <- x
+yHigh <- y + abs(rnorm(10,sd=3.5))
+xLow <- x
+yLow <- y - abs(rnorm(10,sd=3.1))
+arrows(xHigh,yHigh,xLow,yLow,col=2,angle=90,length=0.1,code=3)
+
+```
+
+Adding jitter
+========================================================
+
+```{r, echo=T, eval=FALSE}
+numberWhite <- ??
+numberChipped <- ??
+
+par(mfrow=c(1,2))
+plot(numberWhite,numberChipped,xlab="Number White Marbles Drawn",
+ylab="Number Chipped Marbles Drawn",main="Pulling Marbles")
+plot(jitter(numberWhite),jitter(numberChipped),xlab="Number White Marbles Drawn",
+ylab="Number Chipped Marbles Drawn",main="Pulling Marbles With Jitter")
+
+```
+
+```{r, echo=FALSE, eval=T}
+numberWhite <- rhyper(400,4,5,3)
+numberChipped <- rhyper(400,2,7,3)
+par(mfrow=c(1,2))
+plot(numberWhite,numberChipped,xlab="Number White Marbles Drawn",
+ylab="Number Chipped Marbles Drawn",main="Pulling Marbles")
+plot(jitter(numberWhite),jitter(numberChipped),xlab="Number White Marbles Drawn",
+ylab="Number Chipped Marbles Drawn",main="Pulling Marbles With Jitter")
+
+```
+
+Adding jitter
+========================================================
+
+```{r, echo=ECHO_CHUNK, eval=T}
+numberWhite <- rhyper(400,4,5,3)
+numberChipped <- rhyper(400,2,7,3)
+par(mfrow=c(1,2))
+plot(numberWhite,numberChipped,xlab="Number White Marbles Drawn",
+ylab="Number Chipped Marbles Drawn",main="Pulling Marbles")
+plot(jitter(numberWhite),jitter(numberChipped),xlab="Number White Marbles Drawn",
+ylab="Number Chipped Marbles Drawn",main="Pulling Marbles With Jitter")
+
+```
+
+Mosaic plots
+========================================================
+
+`table(...,
+      exclude = if (useNA == "no") c(NA, NaN),
+      useNA = c("no", "ifany", "always"),
+      dnn = list.names(...), deparse.level = 1)`
+      
+```{r, echo=TRUE, eval=FALSE}
+
+mosaicplot(??, main="sixth plot")
+
+```
+
+```{r, echo=FALSE}
+mosaicplot(table(numberWhite,numberChipped),main="sixth plot")
+
+```
+
+Mosaic plots
+========================================================
+
+```{r, echo=ECHO_CHUNK, eval=TRUE}
+mosaicplot(table(numberWhite,numberChipped),main="sixth plot")
+
+```
+
+
+Pair-wise scatter plots
+========================================================
+
+```{r, echo=T, eval=FALSE}
+uData <- rnorm(20)
+vData <- rnorm(20,mean=5)
+wData <- uData + 2*vData + rnorm(20,sd=0.5)
+xData <- -2*uData+rnorm(20,sd=0.1)
+yData <- 3*vData+rnorm(20,sd=2.5)
+
+pairs(?)
+
+```
+
+```{r, echo=FALSE, eval=T}
+uData <- rnorm(20)
+vData <- rnorm(20,mean=5)
+wData <- uData + 2*vData + rnorm(20,sd=0.5)
+xData <- -2*uData+rnorm(20,sd=0.1)
+yData <- 3*vData+rnorm(20,sd=2.5)
+d <- data.frame(u=uData,v=vData,w=wData,x=xData,y=yData)
+pairs(d)
+
+```
+
+Pair-wise scatter plots
+========================================================
+
+```{r, echo=ECHO_CHUNK, eval=TRUE}
+uData <- rnorm(20)
+vData <- rnorm(20,mean=5)
+wData <- uData + 2*vData + rnorm(20,sd=0.5)
+xData <- -2*uData+rnorm(20,sd=0.1)
+yData <- 3*vData+rnorm(20,sd=2.5)
+d <- data.frame(u=uData,v=vData,w=wData,x=xData,y=yData)
+pairs(d)
+
+```
+
+
+Shaded areas
+========================================================
+
+`polygon(x, y = NULL, density = NULL, angle = 45,
+        border = NULL, col = NA, lty = par("lty"),
+        ..., fillOddEven = FALSE)`
+        
+```{r, echo=T, eval=F}
+stdDev <- 0.75; x <- seq(-5,5,by=0.01); y <- dnorm(x,sd=stdDev)
+right <- qnorm(0.95,sd=stdDev)
+plot(x,y,type="l",xaxt="n",ylab="p",xlab=expression(paste('Assumed Distribution of',bar(x))),axes=FALSE,ylim=c(0,max(y)*1.05),xlim=c(min(x),max(x)),frame.plot=FALSE)
+axis(1,at=c(-5,right,0,5), pos = c(0,0),labels=c(expression(' '),expression(bar(x)[cr]),expression(mu[0]),expression(' ')))
+axis(2)
+xReject <- seq(right,5,by=0.01);  yReject <- dnorm(xReject,sd=stdDev)
+polygon(???, col='red')
+```
+
+
+```{r, echo=FALSE, eval=T}
+stdDev <- 0.75;
+x <- seq(-5,5,by=0.01)
+y <- dnorm(x,sd=stdDev)
+right <- qnorm(0.95,sd=stdDev)
+plot(x,y,type="l",xaxt="n",ylab="p",xlab=expression(paste('Assumed Distribution of ',bar(x))),  axes=FALSE,ylim=c(0,max(y)*1.05),xlim=c(min(x),max(x)),frame.plot=FALSE)
+axis(1,at=c(-5,right,0,5),       pos = c(0,0),   labels=c(expression(' '),expression(bar(x)[cr]),expression(mu[0]),expression(' ')))
+axis(2)
+xReject <- seq(right,5,by=0.01);  yReject <- dnorm(xReject,sd=stdDev)
+polygon(c(xReject,xReject[length(xReject)],xReject[1]),  c(yReject,0, 0), col='red')
+
+```
+
+Shaded areas
+========================================================
+
+```{r, echo=ECHO_CHUNK, eval=T}
+stdDev <- 0.75;
+x <- seq(-5,5,by=0.01)
+y <- dnorm(x,sd=stdDev)
+right <- qnorm(0.95,sd=stdDev)
+plot(x,y,type="l",xaxt="n",ylab="p",xlab=expression(paste('Assumed Distribution of ',bar(x))),  axes=FALSE,ylim=c(0,max(y)*1.05),xlim=c(min(x),max(x)),frame.plot=FALSE)
+axis(1,at=c(-5,right,0,5),       pos = c(0,0),   labels=c(expression(' '),expression(bar(x)[cr]),expression(mu[0]),expression(' ')))
+axis(2)
+xReject <- seq(right,5,by=0.01);  yReject <- dnorm(xReject,sd=stdDev)
+polygon(c(xReject,xReject[length(xReject)],xReject[1]),  c(yReject,0, 0), col='red')
+
+```
+
+Barplot
+========================================================
+
+`barplot(height, width = 1, space = NULL,
+        names.arg = NULL, legend.text = NULL, beside = FALSE,
+        horiz = FALSE, density = NULL, angle = 45,
+        col = NULL, border = par("fg"),
+        main = NULL, sub = NULL, xlab = NULL, ylab = NULL,
+        xlim = NULL, ylim = NULL, xpd = TRUE, log = "",
+        axes = TRUE, axisnames = TRUE,
+        cex.axis = par("cex.axis"), cex.names = par("cex.axis"),
+        inside = TRUE, plot = TRUE, axis.lty = 0, offset = 0,
+        add = FALSE, args.legend = NULL, ...)`
+        
+```{r, eval=FALSE}
+numberWhite <- rhyper(30,4,5,3)
+numberWhite <- as.factor(numberWhite)
+
+???
+```
+
+```{r, echo=FALSE}
+numberWhite <- rhyper(30,4,5,3)
+numberWhite <- as.factor(numberWhite)
+
+totals <- table(numberWhite)
+totals
+barplot(totals, main="Number Draws",ylab="Frequency",xlab="Draws")
+
+```
+
+
+Barplot
+========================================================
+
+```{r, echo=ECHO_CHUNK}
+numberWhite <- rhyper(30,4,5,3)
+numberWhite <- as.factor(numberWhite)
+
+totals <- table(numberWhite)
+totals
+barplot(totals,main="Number Draws",ylab="Frequency",xlab="Draws")
+
+```
+
+plotly
+========================================================
+
+
+[plotly website here](https://plot.ly/r)
+
+
+
+ggplot2: structure
+========================================================
+
+`ggplot(data = <default data set>,
+       aes(x = <default x axis variable>,
+           y = <default y axis variable>,
+           ... <other default aesthetic mappings>),
+       ... <other plot defaults>) +
+       geom_<geom type>(aes(size = <size variable for this geom>,
+                      ... <other aesthetic mappings>),
+                  data = <data for this point geom>,
+                  stat = <statistic string or function>,
+                  position = <position string or function>,
+                  color = <"fixed color specification">,
+                  <other arguments, possibly passed to the _stat_ function) +
+  scale_<aesthetic>_<type>(name = <"scale label">,
+                     breaks = <where to put tick marks>,
+                     labels = <labels for tick marks>,
+                     ... <other options for the scale>) +
+  theme(plot.background = element_rect(fill = "gray"),
+        ... <other theme elements>)`
+
+qplot: overlapping densities
+========================================================
+
+`qplot(x, y = NULL, ..., data, facets = NULL, margins = FALSE,
+  geom = "auto", xlim = c(NA, NA), ylim = c(NA, NA), log = "",
+  main = NULL, xlab = deparse(substitute(x)),
+  ylab = deparse(substitute(y)), asp = NA, stat = NULL, position = NULL)`
+  
+```{r, eval=FALSE}
+library(ggplot2)
+data("mtcars")
+mtcars$gear <- factor(mtcars$gear,levels=c(3,4,5), labels=c("3gears","4gears","5gears"))
+mtcars$am <- factor(mtcars$am,levels=c(0,1), labels=c("Automatic","Manual"))
+mtcars$cyl <- factor(mtcars$cyl,levels=c(4,6,8), labels=c("4cyl","6cyl","8cyl"))
+
+qplot(mpg,
+      data = ??,
+      geom = ??,
+      fill = ??,
+      alpha = ??,
+      main = "Distribution of Gas Milage", xlab="Miles Per Gallon", ylab="Density")
+
+```
+
+```{r, echo=FALSE}
+library(ggplot2)
+data("mtcars")
+mtcars$gear <- factor(mtcars$gear,levels=c(3,4,5), labels=c("3gears","4gears","5gears"))
+mtcars$am <- factor(mtcars$am,levels=c(0,1), labels=c("Automatic","Manual"))
+mtcars$cyl <- factor(mtcars$cyl,levels=c(4,6,8), labels=c("4cyl","6cyl","8cyl"))
+qplot(mpg,
+      data=mtcars,
+      geom="density",
+      fill=gear,
+      alpha=I(.5),
+      main="Distribution of Gas Milage", xlab="Miles Per Gallon", ylab="Density")
+
+```
+
+qplot: overlapping densities
+========================================================
+
+```{r, echo=ECHO_CHUNK}
+library(ggplot2)
+data("mtcars")
+mtcars$gear <- factor(mtcars$gear,levels=c(3,4,5), labels=c("3gears","4gears","5gears"))
+mtcars$am <- factor(mtcars$am,levels=c(0,1), labels=c("Automatic","Manual"))
+mtcars$cyl <- factor(mtcars$cyl,levels=c(4,6,8), labels=c("4cyl","6cyl","8cyl"))
+qplot(mpg,
+      data=mtcars,
+      geom="density",
+      fill=gear,
+      alpha=I(.5),
+      main="Distribution of Gas Milage", xlab="Miles Per Gallon", ylab="Density")
+
+```
+
+qplot: facets and points
+========================================================
+
+```{r, eval=FALSE}
+library(ggplot2)
+data("mtcars")
+mtcars$gear <- factor(mtcars$gear,levels=c(3,4,5), labels=c("3gears","4gears","5gears"))
+mtcars$am <- factor(mtcars$am,levels=c(0,1), labels=c("Automatic","Manual"))
+mtcars$cyl <- factor(mtcars$cyl,levels=c(4,6,8), labels=c("4cyl","6cyl","8cyl"))
+
+qplot(??,
+      ??,
+      data=mtcars, shape=, color=, facets=gear~cyl, size=I(3), xlab="Horsepower", ylab="Miles per Gallon")
+```
+
+```{r, echo=FALSE}
+library(ggplot2)
+data("mtcars")
+mtcars$gear <- factor(mtcars$gear,levels=c(3,4,5), labels=c("3gears","4gears","5gears"))
+mtcars$am <- factor(mtcars$am,levels=c(0,1), labels=c("Automatic","Manual"))
+mtcars$cyl <- factor(mtcars$cyl,levels=c(4,6,8), labels=c("4cyl","6cyl","8cyl"))
+
+qplot(hp, mpg, data=mtcars, shape=am, color=am, facets=gear~cyl, size=I(3), xlab="Horsepower", ylab="Miles per Gallon")
+```
+
+qplot: facets and points
+========================================================
+
+```{r, echo=ECHO_CHUNK}
+library(ggplot2)
+data("mtcars")
+mtcars$gear <- factor(mtcars$gear,levels=c(3,4,5), labels=c("3gears","4gears","5gears"))
+mtcars$am <- factor(mtcars$am,levels=c(0,1), labels=c("Automatic","Manual"))
+mtcars$cyl <- factor(mtcars$cyl,levels=c(4,6,8), labels=c("4cyl","6cyl","8cyl"))
+
+qplot(hp,
+      mpg,
+      data=mtcars, shape=am, color=am, facets=gear~cyl, size=I(3), xlab="Horsepower", ylab="Miles per Gallon")
+```
+
+hist vs geom_histogram
+========================================================
+
+[Rgraphics tutorial here](http://tutorials.iq.harvard.edu/R/Rgraphics/Rgraphics.html)
+
+```{r}
+par(mfrow=c(2,1))
+hist(diamonds$carat)
+hist(diamonds$carat, breaks = 500)
+```
+
+hist vs geom_histogram
+========================================================
+
+```{r}
+ggplot(diamonds, aes(x = carat)) + geom_histogram(bins = 500)
+
+```
+
+ggplot2: Box plot and points with legend
+========================================================
+
+```{r}
+plot(carat ~ clarity,
+     data=subset(diamonds, cut == "Good"))
+points(carat ~ clarity, col="red",
+       data=subset(diamonds, cut == "Ideal"))
+legend(0,3,
+       c("Good", "Ideal"), title="cut",
+       col=c("black", "red"),
+       pch=c(1, 1))
+
+```
+
+ggplot2
+========================================================
+
+```{r}
+ggplot(subset(diamonds, cut %in% c("Good", "Ideal")),
+       aes(x=clarity,
+           y=carat,
+           color=cut))+
+  geom_point()
+
+```
+
+Symbols 
+========================================================
+
+```{r}
+## A look at all 25 symbols
+df2 <- data.frame(x = 1:5 , y = 1:25, z = 1:25)
+s <- ggplot(df2, aes(x = x, y = y))
+s + geom_point(aes(shape = z), size = 4) + scale_shape_identity()
+## While all symbols have a foreground colour, symbols 19-25 also take a
+## background colour (fill)
+```
+
+Symbols (2)
+========================================================
+
+```{r}
+s + geom_point(aes(shape = z), size = 4, colour = "Red") +
+  scale_shape_identity()
+```
+
+Symbols (3)
+========================================================
+
+```{r}
+s + geom_point(aes(shape = z), size = 4, colour = "Red", fill = "Black") +
+  scale_shape_identity()
+
+```
+
+ColorBrewer2
+========================================================
+
+[ColorBrewer2](http://colorbrewer2.org)
+
+
+Manipulate
+========================================================
+
+[manipulate examples](https://support.rstudio.com/hc/en-us/articles/200551906-Interactive-Plotting-with-Manipulate)
+
+```{r, echo=FALSE, eval=F}
+
+library(manipulate)
+manipulate(plot(1:x), x = slider(1, 100))
+```
+
+```{r, echo=FALSE, eval=F}
+manipulate(
+  barplot(as.matrix(longley[,factor]),
+          beside = TRUE, main = factor),
+  factor = picker("GNP", "Unemployed", "Employed"))
+```
+
+```{r, echo=FALSE, eval=F}
+manipulate(
+  boxplot(Freq ~ Class, data = Titanic, outline = outline),
+  outline = checkbox(FALSE, "Show outliers"))
+
+```
+
+
+Options()
+========================================================
+* Sets and reports options. Lots of them.
+*  
+* `digits` from `r pi` using `options(digits = 2)` to `r options(digits = 2); pi`
+* Report value using e.g. `getOption("digits")`
+*  
+* `scipen()`
+```{eval=F}
+R> ran2 <- c(1.810032e+09, 4) 
+R> options("scipen"=-100, "digits"=4)
+R> ran2
+[1] 1.81e+09 4.00e+00
+R> options("scipen"=100, "digits"=4)
+R> ran2
+[1] 1810032000
+```
+
+
+
+Tables
+========================================================
+
+For writing-up output tables they need to be converted to some other format. Rather than e.g. saving as csv and opeing in Excel or Word, you can manipulate the table inside of R.
+For LaTeX document the most common package is `xtable::`
+
+```{r}
+library(xtable)
+
+options(xtable.floating = FALSE)
+options(xtable.timestamp = "")
+
+data(tli)
+
+xtable(tli[1:10, ])
+```
+
+Tables: GLMs
+========================================================
+
+```{r}
+fm3 <- glm(disadvg ~ ethnicty*grade, data = tli, family = binomial)
+xtable(fm3)
+
+```
+
+
+Flat tables
+========================================================
+
+A flat table is when an $n$-dimensional array $n>2$ is represented in 2 dimensions, similar to a 'tidy' array.
+
+```{r, eval=FALSE}
+data(mtcars)
+mtcars$cyl <- factor(mtcars$cyl, levels = c("4","6","8"),
+labels = c("four","six","eight"))
+tbl <- ftable(?, row.vars = c(2, 4), dnn = c("Cylinders", "V/S", "Transmission", "Gears"))
+tbl
+xftbl <- xtableFtable(tbl)
+print.xtableFtable(xftbl)
+
+```
+
+```{r, echo=FALSE}
+data(mtcars)
+mtcars$cyl <- factor(mtcars$cyl, levels = c("4","6","8"),
+labels = c("four","six","eight"))
+tbl <- ftable(mtcars$cyl, mtcars$vs, mtcars$am, mtcars$gear, row.vars = c(2, 4), dnn = c("Cylinders", "V/S", "Transmission", "Gears"))
+tbl
+xftbl <- xtableFtable(tbl)
+print.xtableFtable(xftbl)
+
+```
+
+Flat tables
+========================================================
+
+```{r}
+data(mtcars)
+mtcars$cyl <- factor(mtcars$cyl, levels = c("4","6","8"),
+labels = c("four","six","eight"))
+tbl <- ftable(mtcars$cyl, mtcars$vs, mtcars$am, mtcars$gear, row.vars = c(2, 4), dnn = c("Cylinders", "V/S", "Transmission", "Gears"))
+tbl
+xftbl <- xtableFtable(tbl)
+print.xtableFtable(xftbl)
+
+```
+
+Markdown tables
+========================================================
+
+Pandoc is a unversal document converter that you canuse from inside of R, as well as the command line. You'll need to download it separately but this can be done with installr:: package.
+
+[Pandoc website](https://pandoc.org/)
+
+```{r}
+library(pander)
+pandoc.table(tli)
+pandoc.table(tli, style="rmarkdown")
+
+```
+
+knitr tables
+========================================================
+
+```{r}
+library(knitr)
+kable(head(iris), format = "latex")
+kable(head(iris), format = "html")
+
+```
+
+printr::
+========================================================
+
+Extends the S3 generic function knit_print() in 'knitr' to automatically print some objects using an appropriate format such as Markdown or LaTeX. For example, data frames are automatically printed as tables
+    
+```{r}
+x = matrix(rnorm(40), 5)
+
+dimnames(x) = list(NULL, head(LETTERS, ncol(x)))
+
+knitr::kable(x, digits = 2,
+             caption = "A table produced by printr.")
+```
+
+Other HTML tables
+========================================================
+
+```{r}
+library("htmlTable")
+htmlTable(tli)
+
+library(hwriter)
+hwrite(tli, border=0)
+
+```
+
+
+R and Word
+========================================================
+
+R can write to Microsoft Word (rich text format) to create documents inside of R.
+
+* `rtf::`
+
+```{r}
+library(rtf)
+output <- "rtf_vignette.doc"
+rtf <- RTF(output,width=8.5,height=11,font.size=10,omi=c(1,1,1,1))
+done(rtf)
+```
+
+make new section
+```{r}
+addHeader(rtf,title="Section Header", subtitle="This is the subheading or section text.")
+```
+add paragraph
+```{r}
+addParagraph(rtf,"This is a new self-contained paragraph.\n")
+```
+
+```{r}
+addNewLine(rtf)
+addParagraph(rtf,"Normal, \\b this is bold\\b0, normal.\n")
+addParagraph(rtf,"Normal, {\\b\\i bold-italic}, normal.\n")
+```
+
+add a table
+```{r}
+tab <- as.data.frame(head(iris)) # create a data.frame
+colnames(tab)<-gsub("\\."," ",colnames(tab)) # format column names
+addTable(rtf,tab,font.size=9,row.names=FALSE,NA.string="-")
+```
+
+R and Word (2)
+========================================================
+
+add plot
+```{r}
+addPlot(rtf,plot.fun=plot,width=6,height=6,res=300, iris[,1],iris[,2])
+```
+
+```{r}
+addPageBreak(rtf, width=8.5, height=11, omi=c(1,1,1,1))
+addSessionInfo(rtf)
+done(rtf)
+```
+
+rtf output
+========================================================
+
+![](rtf-doc.png)
+
+
+ReporteRs::
+========================================================
+
+Similarly, R can create Microsoft Powerpoint presentations from inside of R.
+
+ * http://davidgohel.github.io/ReporteRs/index.html
